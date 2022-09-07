@@ -17,7 +17,7 @@ const TabNavigator = props => {
                 justifyContent:'center',
                 padding:12,
             },
-            tabBarLabelStyle: {display:'flex'},
+            tabBarStyle: {display:'flex'},
             tabBarIconStyle: {display: 'none'}  
         }}
    >
