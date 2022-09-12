@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Touchable0pacity, Text} from 'react-native'
+import {View, TouchableOpacity, Text} from 'react-native'
 import styles from './styles';
 
 const ItemsScreen = props => {
