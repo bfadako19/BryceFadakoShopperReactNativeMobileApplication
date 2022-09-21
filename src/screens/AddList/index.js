@@ -55,7 +55,7 @@ const AddList = props => {
             placeholderTextColor = {'grey'}
             />
             <TextInput 
-            value = {value}
+            value = {date}
             onChangeText={value=>setDate(value)}
             style = {styles.Date}
             clearButtonMode = {'while-editing'}
