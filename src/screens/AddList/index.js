@@ -57,7 +57,7 @@ const AddList = props => {
             <TextInput 
             value = {date}
             onChangeText={value=>setDate(value)}
-            style = {styles.Date}
+            style = {styles.date}
             clearButtonMode = {'while-editing'}
             placeholder = {'Enter Date in format YYYY-MM-DD'}
             placeholderTextColor = {'grey'}

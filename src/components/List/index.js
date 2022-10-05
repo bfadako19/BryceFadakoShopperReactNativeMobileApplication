@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import styles from './styles';
@@ -6,10 +7,10 @@ import Styles from './styles';
 const List = props => {
 
     const post = props.post;
+    const navigation = useNavigation();
 
-    const onPress = () => {
-        console.log(post.name);
-    }
+    const onPress = () => {navigation.navigate('Existing List', {post: post})};
+    
     return(
         <View style={styles.container}>
             <TouchableOpacity style={styles.touchable} onPress={onPress}>
@@ -23,5 +24,5 @@ const List = props => {
             </TouchableOpacity>
         </View>
     );
-}
+    }
 export default List
