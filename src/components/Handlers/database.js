@@ -4,6 +4,7 @@ import { openDatabase } from "react-native-sqlite-storage";
 // use hook to create database
 const shopperDB = openDatabase({ name: 'ShopperDB' });
 const listsTableName = 'lists';
+const itemsTableName = 'items';
 
 module.exports = {
     //declare function that will create the lists table 
@@ -53,4 +54,45 @@ module.exports = {
         });
         
     },
+
+createItemsTable: async function () {
+    (await shopperDB).transaction(txn => {
+        txn.executeSql(
+            `CREATE TABLE IF NOT EXISTS ${itemsTableName}(
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT(100),
+                price REAL,
+                quantity INTEGER
+
+            );`,
+            [],
+            () => {
+                console.log('Items table created sucessfully');
+            },
+            error => {
+                console.log('Error creating Items table ' + error.message);
+            },
+        );
+    });
+},
+
+
+addItem: async function (name, price, quantity) {
+    
+    (await shopperDB).transaction(txn => {
+        txn.executeSql(
+            `INSERT INTO ${itemsTableName} (name, price, quantity) VALUES ("${name}",${price},${quantity})`,
+            [],
+            
+            () => {
+                console.log(name + " added sucessfully")
+            },
+            error => {
+                console.log('Error adding item' + error.message);
+            },
+        );
+
+    });
+    
+},
 };
