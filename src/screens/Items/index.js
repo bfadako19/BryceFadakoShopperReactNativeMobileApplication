@@ -8,6 +8,7 @@ import { openDatabase } from "react-native-sqlite-storage";
 
 
 const shopperDB = openDatabase({ name: 'ShopperDB' });
+const itemsTableName = 'items';
 
 const ItemsScreen = props => {
 const navigation = useNavigation();

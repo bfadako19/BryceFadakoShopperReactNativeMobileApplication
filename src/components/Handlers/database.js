@@ -5,6 +5,7 @@ import { openDatabase } from "react-native-sqlite-storage";
 const shopperDB = openDatabase({ name: 'ShopperDB' });
 const listsTableName = 'lists';
 const itemsTableName = 'items';
+const listItemsTableName = 'listItems';
 
 module.exports = {
     //declare function that will create the lists table 
@@ -86,6 +87,43 @@ addItem: async function (name, price, quantity) {
             
             () => {
                 console.log(name + " added sucessfully")
+            },
+            error => {
+                console.log('Error adding item' + error.message);
+            },
+        );
+
+    });
+    
+},
+createListItemsTable: async function () {
+(await shopperDB).transaction(txn => {
+    txn.executeSql(
+        `CREATE TABLE IF NOT EXISTS ${listItemsTableName}(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            list_id INTEGER,
+            items_id INTEGER
+
+        );`,
+        [],
+        () => {
+            console.log('listItems table created sucessfully');
+        },
+        error => {
+            console.log('Error creating listItems table ' + error.message);
+        },
+    );
+});
+}, 
+addListItem: async function (list_id,items_id) {
+    
+    (await shopperDB).transaction(txn => {
+        txn.executeSql(
+            `INSERT INTO ${listItemsTableName} (list_id,items_id) VALUES (${list_id},${items_id})`,
+            [],
+            
+            () => {
+                console.log("list item added sucessfully")
             },
             error => {
                 console.log('Error adding item' + error.message);
