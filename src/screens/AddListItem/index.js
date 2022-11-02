@@ -39,17 +39,22 @@ useEffect(() => {
          /* [
          // {
             id: 1
-            name: milk
-            price: 4.99
-            quantity: 1
-            list_id: 2
+            name: book
+            price: 6
+            quantity: 7
+            list_id: 3
          // }
             id:2
-            name: bread
-            price: 5.99
+            name: socks
+            price: 13.99
+            quantity: 2
+            list_id: 1
+         // {
+            id:3
+            name: phone
+            price: 750
             quantity: 2
             list_id: 2
-         // {
          // }
          ]*/
   
