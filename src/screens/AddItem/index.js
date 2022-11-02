@@ -44,7 +44,7 @@ const onItemAdd =()  => {
             onChangeText={value=>setName(value)}
             style = {styles.name}
             clearButtonMode = {'while-editing'}
-            placeholder = {'Enter List Name'}
+            placeholder = {'Enter Item Name'}
             placeholderTextColor = {'grey'}
             />
             <TextInput 

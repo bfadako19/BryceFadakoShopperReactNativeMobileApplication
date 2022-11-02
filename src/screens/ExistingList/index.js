@@ -87,11 +87,11 @@ const ExistingListScreen = props => {
        
     }
     const onAddItem = () => {
-        
+        navigation.navigate('Add List Item',{post:post});
         
     }
     const onViewList = () => {
-        
+        navigation.navigate('View List Item',{post:post});
         
     }
     return(
