@@ -25,7 +25,7 @@ const App: () => Node = () => {
     console.log('Failed to create items table ' + error);
   }
   try{
-    database.createListsItemsTable();
+    database.createListItemsTable();
   } catch(error){
     console.log('Failed to create listItems table ' + error);
   }
