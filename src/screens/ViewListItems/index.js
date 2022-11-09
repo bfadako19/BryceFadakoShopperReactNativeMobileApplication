@@ -18,8 +18,8 @@ const ViewListItemsScreen = props => {
          let results = [];
          shopperDB.transaction(txn => {
          txn.executeSql(
-           `SELECT * item.id,name,price,quantity FROM ${itemsTableName}
-           ${listItemsTableName} WHERE item.id = item_id and list_id = ${post.id}`,
+           `SELECT * item.id, name, price, quantity FROM ${itemsTableName},
+           ${listItemsTableName} WHERE item.id = items_id and list_id = ${post.id}`,
            [],
            (_, res) => {
            let len = res.rows.length;
@@ -31,8 +31,7 @@ const ViewListItemsScreen = props => {
                id : item.id,
                name: item.name,
                price: item.price,
-               quantity: item.quantity,  
-               list_id : post.id,
+               quantity: item.quantity,
                });
              }
              setItems(results);
