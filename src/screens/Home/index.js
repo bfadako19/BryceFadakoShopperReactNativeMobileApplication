@@ -1,9 +1,26 @@
-import React from 'react';
-import {View, Text, Pressable, SafeAreaView} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, Pressable, SafeAreaView, TextInput, TouchableOpacity, Alert} from 'react-native';
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
+import Entypo from 'react-native-vector-icons/Entypo';
+import bcrypt from 'react-native-bcrypt';
+import { openDatabase } from "react-native-sqlite-storage";
+
+const shopperDB = openDatabase({ name: 'ShopperDB' });
+const usersTableName = 'users';
 
 const HomeScreen = () => {
+
+  const [username,setUsername] = useState([]);
+  const [password,setPassword] = useState([]);
+  const [securityTextEntry,setSecurityTextEntry] = useState(true);
+
+  const onIconPress = () => {
+    setSecurityTextEntry(!securityTextEntry);
+  }
+  const onSubmit = () => {
+
+  }
 
   const navigation = useNavigation();
   return (
@@ -12,18 +29,54 @@ const HomeScreen = () => {
       <View style={styles.header}>
         <Text style={styles.title}>
           Welcome to Shopper
-          <Text style={styles.description}>
-            {'\n' + '\n'}Shopper is a cross platform mobile application built
-            using React Native.
-          </Text>
-          <Text style={styles.description}>
-            {'\n' + '\n'}It maintains its data using an SQLite database.
-          </Text>
-          <Text style={styles.description}>
-            {'\n' + '\n'}It allows its users to add, view, update, and delete
-            shopping lists.
-          </Text>
-        </Text>
+         </Text>
+         <TextInput
+         placeholder='Enter Username'
+         placeholderTextColor='grey'
+         value={username}
+         autoCapitalize='none'
+         onChangeText={setUsername}
+         style={{
+          color: 'black',
+          fontSize: 16,
+          width: '100%',
+          marginVertical: 15,
+          borderColor: 'lightgrey',
+          borderBottomWidth: 1.0,
+          paddingTop: 100,
+         }}
+        />
+        <View
+        style={{
+          flexDirection: 'row',
+          width: '100%',
+          borderBottomWidth: 1.0,
+          borderColor: 'lightgrey',
+          marginVertical: 15,
+        }}
+        >
+          <TextInput
+          placeholder='Enter Password'
+          placeholderTextColor='grey'
+          value={password}
+          autoCapitalize='none'
+          onChangeText={setPassword}
+          secureTextEntry={setSecurityTextEntry}
+          style={{
+            color:'black',
+            fontSize: 16,
+            width: '100%',
+            flex: 1,
+          }}
+          />
+          <TouchableOpacity onPress={onIconPress}>
+            {securityTextEntry == true ? (
+              <Entypo name='eye' size={20} />
+            ) :(
+              <Entypo name='eye-with-line' size={20} />
+            )}
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={styles.bottom}>
         <Pressable

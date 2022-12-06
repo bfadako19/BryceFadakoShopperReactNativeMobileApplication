@@ -8,7 +8,9 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   header: {
-    margin: 10,
+    top: 10,
+    padding: 15,
+    width: '100%',
   },
   description: {
     fontSize: 20,

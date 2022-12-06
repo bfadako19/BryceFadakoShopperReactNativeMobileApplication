@@ -6,6 +6,7 @@ const shopperDB = openDatabase({ name: 'ShopperDB' });
 const listsTableName = 'lists';
 const itemsTableName = 'items';
 const listItemsTableName = 'listItems';
+const usersTableName = 'users';
 
 module.exports = {
     //declare function that will create the lists table 
@@ -127,6 +128,42 @@ addListItem: async function (list_id,items_id) {
             },
             error => {
                 console.log('Error adding item' + error.message);
+            },
+        );
+
+    });
+    
+},
+createUsersTable: async function () {  
+    (await shopperDB).transaction(txn => {
+        txn.executeSql(
+            `CREATE TABLE IF NOT EXISTS ${usersTableName}(
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT,
+                password TEXT
+
+            );`,
+            [],
+            () => {
+                console.log('Users table created sucessfully');
+            },
+            error => {
+                console.log('Error creating users table ' + error.message);
+            },
+        );
+    });
+},
+
+addUser: async function (username, password) {
+    (await shopperDB).transaction(txn => {
+        txn.executeSql(
+            `INSERT INTO ${usersTableName} (username, password) VALUES ("${username}","${password}")`,
+            [],
+            () => {
+                console.log(username +" " + password + " added sucessfully")
+            },
+            error => {
+                console.log('Error adding user' + error.message);
             },
         );
 
