@@ -1,16 +1,16 @@
 import React, {useState} from 'react';
 import {View, Text, Pressable, SafeAreaView, TextInput, TouchableOpacity, Alert} from 'react-native';
-import styles from '../SignUp/styles';
+import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import bcrypt from 'react-native-bcrypt';
 import { openDatabase } from "react-native-sqlite-storage";
-
+import database from '../../components/Handlers/database'
 
 const shopperDB = openDatabase({ name: 'ShopperDB' });
 const usersTableName = 'users';
 
-const HomeScreen = () => {
+const SignUpScreen = () => {
 
   const [username,setUsername] = useState([]);
   const [password,setPassword] = useState([]);
@@ -30,19 +30,14 @@ const HomeScreen = () => {
       [],
       (_,res) => {
         let user = res.rows.length;
-        if(user == 0){
-          Alert.alert('Invalid Input','Username and password are required!');
+        if(user >= 1){
+          Alert.alert('Invalid Input','Username already exists!');
           return;
         }else{
-          let item = res.rows.length(0);
-          let isPasswordCorrect = bcrypt.compareSync(password, item.password);
-          if(!isPasswordCorrect){
-            Alert.alert('Invalid Input','Username and password are required!');
-            return;
-          }
-          if (user != 0 && isPasswordCorrect){
-            navigation.navigate('Start Shopping!');
-          }
+           let salt = bcrypt.genSaltSync(10);
+           let hash = bcrypt.hashSync(password, salt);
+           database.addUser(username,hash);
+           navigation.navigate('Home');
         }
       },
       error => {
@@ -115,30 +110,10 @@ const HomeScreen = () => {
         accessibilityHint='Goes to list screen'
           style={styles.button}
           onPress={() => onSubmit()}>
-          <Text style={styles.buttonText}>Sign In!</Text>
-        </Pressable>
-        <Pressable
-          OnPress={() => navigation.navigate('Sign Up')}
-          style = {{
-            height: 50,
-            borderRadius: 30,
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginTop: 15,
-            backgroundColor: 'black',
-            marginHorizontal: 10,
-          }}
-          > 
-          <Text
-          style={{
-            color: 'white',
-            fontSize: 16,
-            fontWeight: 'bold',
-          }}
-          >New Here? Sign Up</Text>
+          <Text style={styles.buttonText}>Sign Up!</Text>
         </Pressable>
       </View>
   );
 };
 
-export default HomeScreen;
+export default SignUpScreen;
